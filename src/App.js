@@ -41,12 +41,11 @@ function SignOut() {
 function ChatRoom() {
   const messagesRef = firestore.collection('messages')
   const query = messagesRef.orderBy('createdAt').limitToLast(25)
+  const bottom = useRef()
 
   const [messages] = useCollectionData(query, { idField: 'id' })
 
   const [formValue, setFormValue] = useState('')
-
-  const dummy = useRef()
 
   const sendMessage = async (evt) => {
     evt.preventDefault()
@@ -64,7 +63,7 @@ function ChatRoom() {
   }
 
   useEffect(() => {
-    dummy.current.scrollIntoView({ behavior: 'smooth' })
+    bottom.current.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
   return (
@@ -73,6 +72,8 @@ function ChatRoom() {
         {messages && messages.map(msg => {
           <ChatMessage key={msg.id} message={msg} />
         })}
+
+        <span ref={bottom}></span>
       </main>
 
       <form onSubmit={sendMessage}>
