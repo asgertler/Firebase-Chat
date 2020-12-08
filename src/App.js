@@ -88,3 +88,41 @@ function ChatMessage() {
     </>
   )
 }
+
+function ChatRoom() {
+  const [formValue, setFormValue] = useState('')
+
+  const dummy = useRef()
+
+  const sendMessage = async (evt) => {
+    evt.preventDefault()
+
+    const { uid, photoURL } = auth.currentUser
+
+    await messagesRef.add({
+      text: formValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      uid,
+      photoURL
+    })
+
+    setFormValue('')
+  }
+
+  useEffect(() => {
+    dummy.current.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  return (
+    <>
+      <form onSubmit={sendMessage}>
+        <input
+          value={formValue}
+          onChange={(evt) => setFormValue(evt.target.value)}
+          placeholder="don't be a jerk" />
+
+        <button type='submit' disabled={!formValue}>✉️</button>
+      </form>
+    </>
+  )
+}
