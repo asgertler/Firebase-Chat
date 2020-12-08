@@ -28,9 +28,35 @@ function App() {
     <div className='App'>
       <header>
         <h1>⚛️🔥💬</h1>
+        <SignOut />
       </header>
+
+      <section>
+        {user ? <ChatRoom /> : <SignIn />}
+      </section>
     </div>
   );
 }
 
 export default App;
+
+function SignIn() {
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider()
+    auth.signInWithPopup(provider)
+  }
+
+  return (
+    <button onClick={signInWithGoogle}>Sign in with Google</button>
+  )
+}
+
+function SignOut() {
+  return auth.currentUser && (
+    <button onClick={() => auth.signOut()}>Sign Out</button>
+  )
+}
+
+function ChatRoom() { }
+
+function ChatMessage() { }
