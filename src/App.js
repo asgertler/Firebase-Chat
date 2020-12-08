@@ -21,25 +21,6 @@ firebase.initializeApp({
 const auth = firebase.auth()
 const firestore = firebase.firestore()
 
-function App() {
-  const [user] = useAuthState(auth)
-
-  return (
-    <div className='App'>
-      <header>
-        <h1>⚛️🔥💬</h1>
-        <SignOut />
-      </header>
-
-      <section>
-        {user ? <ChatRoom /> : <SignIn />}
-      </section>
-    </div>
-  );
-}
-
-export default App;
-
 function SignIn() {
   const signInWithGoogle = () => {
     const provider = new firebase.auth.GoogleAuthProvider()
@@ -58,38 +39,11 @@ function SignOut() {
 }
 
 function ChatRoom() {
-  const messageRef = firestore.collection('messages')
-  const query = messageRef.orderBy('createdAt').limitToLast(25)
+  const messagesRef = firestore.collection('messages')
+  const query = messagesRef.orderBy('createdAt').limitToLast(25)
 
   const [messages] = useCollectionData(query, { idField: 'id' })
 
-  return (
-    <>
-      <main>
-        {messages && messages.map(msg => {
-          <ChatMessage key={msg.id} message={msg} />
-        })}
-      </main>
-    </>
-  )
-}
-
-function ChatMessage() {
-  const { text, uid, photoURL } = props.message
-
-  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'
-
-  return (
-    <>
-      <div className={`message ${messageClass}`}>
-        <img src={photoURL} />
-        <p>{text}</p>
-      </div>
-    </>
-  )
-}
-
-function ChatRoom() {
   const [formValue, setFormValue] = useState('')
 
   const dummy = useRef()
@@ -115,6 +69,12 @@ function ChatRoom() {
 
   return (
     <>
+      <main>
+        {messages && messages.map(msg => {
+          <ChatMessage key={msg.id} message={msg} />
+        })}
+      </main>
+
       <form onSubmit={sendMessage}>
         <input
           value={formValue}
@@ -126,3 +86,37 @@ function ChatRoom() {
     </>
   )
 }
+
+function ChatMessage(props) {
+  const { text, uid, photoURL } = props.message
+
+  const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received'
+
+  return (
+    <>
+      <div className={`message ${messageClass}`}>
+        <img src={photoURL} />
+        <p>{text}</p>
+      </div>
+    </>
+  )
+}
+
+function App() {
+  const [user] = useAuthState(auth)
+
+  return (
+    <div className='App'>
+      <header>
+        <h1>⚛️🔥💬</h1>
+        <SignOut />
+      </header>
+
+      <section>
+        {user ? <ChatRoom /> : <SignIn />}
+      </section>
+    </div>
+  );
+}
+
+export default App;
