@@ -70,7 +70,7 @@ function ChatRoom() {
     <>
       <main>
         {messages && messages.map(msg => {
-          <ChatMessage key={msg.id} message={msg} />
+          return <ChatMessage key={msg.id} message={msg} />
         })}
 
         <span ref={bottom}></span>
@@ -96,7 +96,7 @@ function ChatMessage(props) {
   return (
     <>
       <div className={`message ${messageClass}`}>
-        <img src={photoURL} />
+        <img src={photoURL} alt='User' />
         <p>{text}</p>
       </div>
     </>
