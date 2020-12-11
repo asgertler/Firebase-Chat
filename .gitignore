@@ -24,4 +24,4 @@ yarn-error.log*
 
 .eslintcache
 
-src/components/FirebaseConfig.js
+FirebaseConfig.js
