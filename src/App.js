@@ -4,7 +4,7 @@ import './App.css'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
-import { FirebaseConfig } from './components/FirebaseConfig.js'
+import { FirebaseConfig } from './components/fbauth/FirebaseConfig.js'
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'

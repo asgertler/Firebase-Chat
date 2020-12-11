@@ -24,4 +24,4 @@ yarn-error.log*
 
 .eslintcache
 
-/FirebaseConfig.js
+src/components/fbauth
