@@ -25,6 +25,10 @@ body {
   box-sizing: border-box;
 }
 
+.App header h1 {
+  margin-left: 25px;
+}
+
 .App section {
   display: flex;
   flex-direction: column;
@@ -51,7 +55,7 @@ main::-webkit-scrollbar-track {
 }
 
 main::-webkit-scrollbar-thumb {
-  background: #2ecc71;
+  background: #FFCB2B;
 }
 
 form {
@@ -67,7 +71,7 @@ form {
 
 form button {
   width: 20%;
-  background-color: #27ae60;
+  background-color: #FFCB2B;
 }
 
 
