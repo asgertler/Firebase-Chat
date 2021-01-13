@@ -9,6 +9,8 @@ import { FirebaseConfig } from './components/fbauth/FirebaseConfig.js'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
+import { SiFirebase } from 'react-icons/si'
+
 FirebaseConfig()
 
 const auth = firebase.auth()
@@ -102,7 +104,7 @@ function App() {
   return (
     <div className='App'>
       <header>
-        <h1>Firebase Chat</h1>
+        <h1><SiFirebase style={{ color: '#FFCB2B' }} /> Chat</h1>
         <SignOut />
       </header>
 
